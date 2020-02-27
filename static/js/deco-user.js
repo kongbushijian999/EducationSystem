@@ -36,7 +36,7 @@ function sendCodeChangeEmail($btn){
     });
 
 }
-//个人资料邮箱修改
+//个人信息邮箱修改
 function changeEmailSubmit($btn){
 var verify = verifyDialogSubmit(
         [
@@ -76,7 +76,7 @@ var verify = verifyDialogSubmit(
 }
 
 $(function(){
-    //个人资料修改密码
+    //个人信息修改密码
     $('#jsUserResetPwd').on('click', function(){
         Dml.fun.showDialog('#jsResetDialog', '#jsResetPwdTips');
     });
@@ -108,7 +108,7 @@ $(function(){
         });
     });
 
-    //个人资料头像
+    //个人信息头像
     $('.js-img-up').uploadPreview({ Img: ".js-img-show", Width: 94, Height: 94 ,Callback:function(){
         $('#jsAvatarForm').submit();
     }});
@@ -145,7 +145,7 @@ $(function(){
             {id: '#nick_name', tips: Dml.Msg.epNickName, require: true}
         ]
     );
-    //保存个人资料
+    //保存个人信息
     $('#jsEditUserBtn').on('click', function(){
         var _self = $(this),
             $jsEditUserForm = $('#jsEditUserForm')
