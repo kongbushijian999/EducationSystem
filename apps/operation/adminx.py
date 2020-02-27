@@ -46,7 +46,7 @@ class CourseScoresAdmin(object):
     model_icon = 'fa fa-star'
 
 
-xadmin.site.register(UserAsk, UserAskAdmin)
+# xadmin.site.register(UserAsk, UserAskAdmin)
 xadmin.site.register(UserFavorite, UserFavoriteAdmin)
 xadmin.site.register(UserMessage, UserMessageAdmin)
 xadmin.site.register(UserCourse, UserCourseAdmin)
