@@ -71,7 +71,7 @@ class CourseDetailView(View):
         tag = course.tag
         if tag:
             # ~Q(id=course.id)排除掉推荐的是同一门课程的情况
-            relate_courses = Course.objects.filter(Q(tag=tag)&~Q(id=course.id))[:1]
+            relate_courses = Course.objects.filter(Q(tag=tag)&~Q(id=course.id)).order_by('-click_nums')[:1]
         else:
             relate_courses = []
 
@@ -106,7 +106,7 @@ class CourseInfoView(LoginRequiredMixin, View):
         all_user_courses = UserCourse.objects.filter(user_id__in=user_ids) # __in是因为传进去的是一个list
         # 取出所有课程id
         course_ids = [user_course.course.id for user_course in all_user_courses]
-        relate_courses = Course.objects.filter(id__in=course_ids).order_by('-click_nums')[:5]
+        relate_courses = Course.objects.filter(Q(id__in=course_ids)&~Q(id=course.id)).order_by('-click_nums')[:5]
 
         all_resources = CourseResource.objects.filter(course=course)
         return render(request, 'course-video.html', {
@@ -230,7 +230,7 @@ class CommentsView(LoginRequiredMixin, View):
             # 取出所有课程的id
             course_ids = [user_course.course.id for user_course in all_user_courses]
             # 排序取出点击数排在前5的课程
-            relate_courses = Course.objects.filter(id__in=course_ids).order_by('-click_nums')[:5]
+            relate_courses = Course.objects.filter(Q(id__in=course_ids)&~Q(id=course.id)).order_by('-click_nums')[:5]
 
         return render(request, 'course-comment.html', {
             'course': course,
@@ -307,7 +307,7 @@ class VideoPlayView(LoginRequiredMixin, View):
         all_user_courses = UserCourse.objects.filter(user_id__in=user_ids)  # __in是因为传进去的是一个list
         # 取出所有课程id
         course_ids = [user_course.course.id for user_course in all_user_courses]
-        relate_courses = Course.objects.filter(id__in=course_ids).order_by('-click_nums')[:5]
+        relate_courses = Course.objects.filter(Q(id__in=course_ids)&~Q(id=course.id)).order_by('-click_nums')[:5]
 
         all_resources = CourseResource.objects.filter(course=course)
         return render(request, 'course-play.html', {
